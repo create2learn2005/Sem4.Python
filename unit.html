@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PyBank | Questions</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-unit">
+
+<!-- ── VISITOR COUNTER BANNER ──────────────────── -->
+<div class="visitor-banner" id="visitorBanner">
+  <div class="visitor-inner">
+    <span class="visitor-dot"></span>
+    <span class="visitor-text">
+      <i class="bi bi-eye-fill me-1"></i>
+      <span id="visitorCount">—</span> total visitors
+    </span>
+    <span class="visitor-sep">·</span>
+    <span class="visitor-live"><span class="live-dot"></span> Live DB</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="pyb-nav" id="mainNav" style="top:32px">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <span class="logo-py">&gt;&gt;&gt;</span>
+      <span class="logo-text">PyBank</span>
+    </a>
+    
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="unit.html?unit=all" class="nav-link nav-cta" data-unit-link="all">All</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleNav()">
+      <i class="bi bi-list"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="unit-layout" style="padding-top:92px">
+
+  <!-- SIDEBAR -->
+  <aside class="unit-sidebar" id="sidebar" style="top:92px">
+        <!-- Search -->
+    <div class="sb-section">
+      <div class="sb-section-label"><i class="bi bi-search me-1"></i> Search</div>
+      <div class="sb-search">
+        <input type="text" id="searchInput" placeholder="Search text or jump to Q no. (e.g. 42)" />
+      </div>
+    </div>
+
+
+    <!-- Unit Nav -->
+    <div class="sb-section">
+      <div class="sb-section-label"><i class="bi bi-folder2-open me-1"></i> Units</div>
+      <div id="unitNav"></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="sb-section">
+      <div class="sb-section-label"><i class="bi bi-funnel me-1"></i> Question Type</div>
+      <label class="filter-chip">
+        <input type="checkbox" id="f-mcq" checked>
+        <span class="chip-dot dot-mcq"></span> MCQ
+      </label>
+      <label class="filter-chip">
+        <input type="checkbox" id="f-code" checked>
+        <span class="chip-dot dot-code"></span> Coding / Descriptive
+      </label>
+      <label class="filter-chip mt-2">
+        <input type="checkbox" id="f-pyq">
+        <span class="chip-dot dot-pyq"></span> ⭐ PYQ Only
+      </label>
+    </div>
+
+
+
+    <!-- Stats -->
+    <div class="sb-stats">
+      <div class="sb-stat">
+        <span class="sb-stat-num" id="statShowing">—</span>
+        <span class="sb-stat-lbl">Showing</span>
+      </div>
+      <div class="sb-stat">
+        <span class="sb-stat-num" id="statPyq">—</span>
+        <span class="sb-stat-lbl">PYQ</span>
+      </div>
+      <div class="sb-stat">
+        <span class="sb-stat-num" id="statTotal">—</span>
+        <span class="sb-stat-lbl">Total</span>
+      </div>
+    </div>
+
+    <!-- Reset -->
+    <button class="btn-reset" id="resetBtn" onclick="resetFilters()">
+      <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filters
+    </button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="unit-main" id="mainContent">
+
+    <!-- TOP BAR -->
+    <div class="unit-topbar">
+      <button class="sidebar-toggle-btn" id="sidebarToggle" onclick="toggleSidebar()">
+        <i class="bi bi-layout-sidebar-reverse"></i>
+      </button>
+      <div class="topbar-info">
+        <h1 class="topbar-title" id="pageTitle">All Questions</h1>
+        <p class="topbar-sub" id="pageSubtitle">Fundamentals of Computer Science using Python II</p>
+      </div>
+      <div class="topbar-actions ms-auto">
+ 
+        <button class="action-btn" id="expandAllBtn" title="Expand All" onclick="expandAll()">
+          <i class="bi bi-chevron-bar-expand"></i>
+        </button>
+        <button class="action-btn" id="collapseAllBtn" title="Collapse All" onclick="collapseAll()">
+          <i class="bi bi-chevron-bar-contract"></i>
+        </button>
+        <!-- View toggle — list is default (active) -->
+        <div class="view-toggle">
+          <button class="view-btn" id="viewGrid" onclick="setView('grid')" title="Grid view"><i class="bi bi-grid-3x3-gap"></i></button>
+          <button class="view-btn active" id="viewList" onclick="setView('list')" title="List view"><i class="bi bi-list-ul"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK REF BAR -->
+
+    <!-- LOADING STATE -->
+    <div class="loading-state" id="loadingState">
+      <div class="loading-spinner"></div>
+      <p>Loading questions from database...</p>
+      <span class="loading-sub" id="loadingMsg">Connecting to PostgreSQL...</span>
+    </div>
+
+    <!-- CARDS GRID — default list-view -->
+    <div class="cards-grid list-view" id="cardsContainer"></div>
+
+    <!-- EMPTY STATE -->
+    <div class="empty-state hidden" id="emptyState">
+      <div class="empty-icon">🐍</div>
+      <p>No questions match your filters.</p>
+      <button onclick="resetFilters()" class="btn-reset mt-3">Reset Filters</button>
+    </div>
+
+  </main>
+</div>
+
+<!-- OVERLAY for mobile sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- TOAST -->
+<div class="toast-msg hidden" id="toast"></div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>© 2026 🌐 <strong>LJ United Networks</strong> 🚀 &nbsp;·&nbsp; Dixit Patel</div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <span class="footer-follow">follow_me →</span>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/dixit.patel_since_2005/?hl=en" target="_blank" class="soc-btn"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/create2learn7238" target="_blank" class="soc-btn"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/dixit-patel-7718993a1/" target="_blank" class="soc-btn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/919316227238" target="_blank" class="soc-btn"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="script.js"></script>
+</body>
+</html>

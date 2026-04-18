@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PyBank | Python II — LJU Practice Portal</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── VISITOR COUNTER BANNER ──────────────────── -->
+<div class="visitor-banner" id="visitorBanner">
+  <div class="visitor-inner">
+    <span class="visitor-dot"></span>
+    <span class="visitor-text">
+      <i class="bi bi-eye-fill me-1"></i>
+      <span id="visitorCount">—</span> total visitors
+    </span>
+    <span class="visitor-sep">·</span>
+    <span class="visitor-live"><span class="live-dot"></span> Live Portal</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <span class="logo-py">&gt;&gt;&gt;</span>
+      <span class="logo-text">PyBank</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link active">Home</a>
+
+      <a href="unit.html?unit=all" class="nav-link nav-cta">All Questions</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleNav()">
+      <i class="bi bi-list"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-orb orb-3"></div>
+
+  <div class="container position-relative">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-10">
+        <div class="hero-badge mb-3">
+          <span class="badge-dot"></span>
+          LJU — Fundamentals of CS using Python II
+        </div>
+        <h1 class="hero-title">
+          Master Python <span class="title-accent">the right way</span>
+        </h1>
+        <p class="hero-subtitle">
+          500+ exam-ready questions across <strong>10 units</strong> — Pandas, Visualization, ML, Django, DRF &amp; more.<br>
+          Inline answers. Code snippets. PYQ marked. Zero distractions. Powered by live database.
+        </p>
+        <div class="hero-code-block">
+          <div class="code-line"><span class="code-keyword">import</span> <span class="code-module">pybank</span> <span class="code-keyword">as</span> <span class="code-var">pb</span></div>
+          <div class="code-line"><span class="code-var">pb</span><span class="code-dot">.</span><span class="code-fn">load_questions</span><span class="code-paren">(</span><span class="code-str">units=[1,2,3,4,5,6,7,8,9,10]</span><span class="code-paren">)</span></div>
+          <div class="code-line"><span class="code-comment" id="heroLoaded"># loading from database...</span></div>
+        </div>
+        <div class="hero-actions">
+          <a href="unit.html?unit=all" class="btn btn-red btn-lg">
+            <i class="bi bi-play-fill me-2"></i>Start Practicing
+          </a>
+          <a href="unit.html?unit=all&pyq=true" class="btn btn-outline-red btn-lg ms-3">
+            <i class="bi bi-star-fill me-2"></i>PYQ Only
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num" id="statTotal" data-target="500">0</div>
+        <div class="stat-lbl">Total Questions</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="10">0</div>
+        <div class="stat-lbl">Units</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" id="statPYQ" data-target="30">0</div>
+        <div class="stat-lbl">PYQ Questions</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="100">0</div>
+        <div class="stat-lbl">% Free</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNITS CARDS — 10 units -->
+<section class="units-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Choose Your Unit</h2>
+      <p class="section-sub">10 units covering the complete Python II syllabus</p>
+    </div>
+    <div class="row g-4" id="unitCardsRow">
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-table"></i></div>
+            <div class="unit-chip chip-u1">Unit 1</div>
+            <h3 class="unit-title">Pandas &amp; DataFrames</h3>
+            <p class="unit-desc">Data cleaning, groupby, merge, sort, fillna, dropna, crosstab, describe, corr and more.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> MCQ + Coding</span>
+              <span><i class="bi bi-star-fill"></i> PYQ included</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-bar-chart-line"></i></div>
+            <div class="unit-chip chip-u2">Unit 2</div>
+            <h3 class="unit-title">Data Visualization</h3>
+            <p class="unit-desc">Seaborn, Plotly Express, Matplotlib, NetworkX — histograms, heatmaps, scatter plots, network graphs.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> MCQ + Code MCQ</span>
+              <span><i class="bi bi-code-slash"></i> Output-based</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-cpu"></i></div>
+            <div class="unit-chip chip-u3">Unit 3</div>
+            <h3 class="unit-title">Feature Engineering</h3>
+            <p class="unit-desc">Polynomial features, label encoding, binning, feature scaling, train-test split basics.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> MCQ + Coding</span>
+              <span><i class="bi bi-star-fill"></i> PYQ included</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="# class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-diagram-3"></i></div>
+            <div class="unit-chip chip-u4">Unit 4</div>
+            <h3 class="unit-title">Regression Models</h3>
+            <p class="unit-desc">Linear, polynomial, multiple regression. R² score, RMSE, train/test split, sklearn pipeline.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> MCQ + Coding</span>
+              <span><i class="bi bi-star-fill"></i> PYQ included</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-bezier2"></i></div>
+            <div class="unit-chip chip-u5">Unit 5</div>
+            <h3 class="unit-title">Classification</h3>
+            <p class="unit-desc">kNN, Decision Tree, SVM, Random Forest — confusion matrix, precision, recall, F1 score.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> MCQ + Coding</span>
+              <span><i class="bi bi-code-slash"></i> sklearn focus</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-layers"></i></div>
+            <div class="unit-chip chip-u6">Unit 6</div>
+            <h3 class="unit-title">Deep Learning &amp; CNN</h3>
+            <p class="unit-desc">TensorFlow, Keras, CNN architecture, transfer learning, model training &amp; evaluation.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> MCQ + Coding</span>
+              <span><i class="bi bi-lightning-fill"></i> TensorFlow</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-globe2"></i></div>
+            <div class="unit-chip chip-u7">Unit 7</div>
+            <h3 class="unit-title">Web Scraping &amp; APIs</h3>
+            <p class="unit-desc">BeautifulSoup, requests, OpenWeatherMap API, REST APIs — scrape, parse &amp; consume data.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> Coding focus</span>
+              <span><i class="bi bi-code-slash"></i> Real datasets</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-server"></i></div>
+            <div class="unit-chip chip-u8">Unit 8</div>
+            <h3 class="unit-title">Django Basics</h3>
+            <p class="unit-desc">Django setup, MVT, models, views, templates, forms, admin panel, CRUD operations.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> Coding focus</span>
+              <span><i class="bi bi-star-fill"></i> Project-based</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-person-lock"></i></div>
+            <div class="unit-chip chip-u9">Unit 9</div>
+            <h3 class="unit-title">Django Auth &amp; Projects</h3>
+            <p class="unit-desc">User authentication, login/signup/logout, session management, CRM, blog, hotel booking apps.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> Full Projects</span>
+              <span><i class="bi bi-star-fill"></i> PYQ included</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <a href="#" class="unit-card-link">
+          <div class="unit-card">
+            <div class="unit-card-icon"><i class="bi bi-braces-asterisk"></i></div>
+            <div class="unit-chip chip-u10">Unit 10</div>
+            <h3 class="unit-title">Django REST Framework</h3>
+            <p class="unit-desc">DRF serializers, ViewSets, routers, JWT auth, @action decorator, Postman API testing.</p>
+            <div class="unit-meta">
+              <span><i class="bi bi-question-circle"></i> MCQ + Coding</span>
+              <span><i class="bi bi-code-slash"></i> DRF/API focus</span>
+            </div>
+            <div class="unit-arrow"><i class="bi bi-arrow-right-circle-fill"></i></div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Why PyBank?</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+          <h4>Instant Inline Answers</h4>
+          <p>Click any question to see the full answer with explanation — right below the question. No modals, no popups.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-database-fill"></i></div>
+          <h4>Live Database</h4>
+          <p>All 500+ questions and answers are served from a live PostgreSQL database — always up to date, always accurate.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-shuffle"></i></div>
+          <h4>Shuffle &amp; Filter</h4>
+          <p>Shuffle questions randomly, filter by type (MCQ/Code), or focus on PYQs marked from past LJU papers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PYTHON TIPS TICKER -->
+<div class="tips-ticker">
+  <div class="ticker-label"><i class="bi bi-terminal-fill"></i> python_tips</div>
+  <div class="ticker-wrap">
+    <div class="ticker-inner" id="ticker">
+      <span>df.dropna(inplace=True) modifies the original DataFrame</span>
+      <span>•</span>
+      <span>pd.get_dummies() converts categorical → one-hot encoded</span>
+      <span>•</span>
+      <span>corr() value of 1 means perfect positive correlation</span>
+      <span>•</span>
+      <span>train_test_split(X, y, test_size=0.2, random_state=42)</span>
+      <span>•</span>
+      <span>sns.pairplot(df) — instant EDA for all numeric columns</span>
+      <span>•</span>
+      <span>df.shape returns (rows, columns) as a tuple</span>
+      <span>•</span>
+      <span>NaN stands for Not a Number — it's of type float</span>
+      <span>•</span>
+      <span>KNeighborsClassifier(n_neighbors=5).fit(X_train, y_train)</span>
+      <span>•</span>
+      <span>from rest_framework import viewsets, permissions</span>
+      <span>•</span>
+      <span>@api_view(['GET']) turns a function into an API endpoint</span>
+      <span>•</span>
+      <span>BeautifulSoup(html, 'html.parser').find_all('a')</span>
+      <span>•</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>© 2026 🌐 <strong>LJ United Networks</strong> 🚀 &nbsp;·&nbsp; Dixit Patel</div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <span class="footer-follow">follow_me →</span>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/dixit.patel_since_2005/?hl=en" target="_blank" class="soc-btn"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/create2learn7238" target="_blank" class="soc-btn"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/dixit-patel-7718993a1/" target="_blank" class="soc-btn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/919316227238" target="_blank" class="soc-btn"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module">
+  // ── CONFIG — Direct Neon DB mode (no Worker API) ──
+  import { neon } from 'https://esm.sh/@neondatabase/serverless@0.10.4';
+
+  const DATABASE_URL = 'postgresql://neondb_owner:npg_kuXI3LOC1QAf@ep-lucky-hall-a10bbj3u-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+  const sanitizedDbUrl = new URL(DATABASE_URL);
+  sanitizedDbUrl.searchParams.delete('channel_binding');
+  const sql = neon(sanitizedDbUrl.toString());
+
+  // ── VISITOR COUNTER ──────────────────────────────
+  async function loadVisitorCount() {
+    try {
+      const rows = await sql`
+        INSERT INTO visitor_counter (id, count, last_updated)
+        VALUES (1, 1, NOW())
+        ON CONFLICT (id) DO UPDATE
+        SET
+          count = visitor_counter.count + 1,
+          last_updated = NOW()
+        RETURNING count
+      `;
+      const count = Number.parseInt(rows?.[0]?.count ?? 0, 10) || 0;
+      document.getElementById('visitorCount').textContent = count.toLocaleString();
+    } catch {
+      document.getElementById('visitorCount').textContent = '—';
+    }
+  }
+
+  // ── LOAD STATS FROM DB ───────────────────────────
+  async function loadStats() {
+    try {
+      const rows = await sql`
+        SELECT
+          COUNT(*) AS total,
+          COUNT(*) FILTER (
+            WHERE previous_year IS NOT NULL
+              AND previous_year != ''
+              AND LOWER(previous_year) != 'no'
+          ) AS pyq_count
+        FROM questions_clean
+        WHERE marks IS NOT NULL
+      `;
+      const data = rows?.[0] || {};
+      if (data.total) {
+        const total = Number.parseInt(data.total, 10) || 0;
+        const pyq = Number.parseInt(data.pyq_count, 10) || 0;
+        document.querySelector('[data-target="500"]').dataset.target = total;
+        document.querySelector('[data-target="30"]').dataset.target = pyq;
+        document.getElementById('heroLoaded').textContent = `# ${total} questions loaded ✓`;
+      }
+    } catch {
+      document.getElementById('heroLoaded').textContent = '# questions loaded ✓';
+    }
+  }
+
+  // ── NAVBAR SCROLL ────────────────────────────────
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ── NAV TOGGLE MOBILE ────────────────────────────
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  window.toggleNav = toggleNav;
+
+  // ── ANIMATED COUNTER ─────────────────────────────
+  function animateCounters() {
+    document.querySelectorAll('.stat-num').forEach(el => {
+      const target = parseInt(el.dataset.target) || 0;
+      let current = 0;
+      const step = Math.ceil(target / 60);
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current + (el.dataset.target == '100' ? '%' : '+');
+        if (current >= target) clearInterval(timer);
+      }, 25);
+    });
+  }
+
+  // ── INTERSECTION OBSERVER ─────────────────────────
+  const statsObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      animateCounters();
+      statsObs.disconnect();
+    }
+  }, { threshold: 0.5 });
+  statsObs.observe(document.querySelector('.stats-strip'));
+
+  // ── TICKER DUPLICATE ─────────────────────────────
+  const ticker = document.getElementById('ticker');
+  ticker.innerHTML += ticker.innerHTML;
+
+  // ── INIT ─────────────────────────────────────────
+  loadVisitorCount();
+  loadStats();
+</script>
+</body>
+</html>
