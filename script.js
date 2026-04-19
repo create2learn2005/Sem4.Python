@@ -296,7 +296,8 @@ function bindEvents() {
     filterAndRender();
     jumpToQuestionCard(questionNo, true);
   });
-  document.getElementById('shuffleBtn').addEventListener('click', () => {
+  const shuffleBtn = document.getElementById('shuffleBtn');
+  if (shuffleBtn) shuffleBtn.addEventListener('click', () => {
     filteredList = [...filteredList].sort(() => Math.random() - 0.5);
     renderCards();
     showToast('🔀 Shuffled!');
